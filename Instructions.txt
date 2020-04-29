@@ -28,3 +28,11 @@ docker image ls
 sudo docker-compose -f openstfDocker.yml up
 
 http://<IP>>:7100/#!/devices
+
+
+
+API: https://github.com/openstf/stf/blob/master/doc/API.md
+curl -H "Authorization: Bearer TOKEN" -i http://<IP>>:7100/api/v1/devices
+
+
+iOS:  https://github.com/tmobile/stf_ios_support
