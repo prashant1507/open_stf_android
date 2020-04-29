@@ -29,4 +29,4 @@ stf-local:
     - "7120:7120"
     - "7400-7500:7400-7500"
   restart: always
-  command: stf local --public-ip 10.10.12.95 --provider-min-port 7400 --provider-max-port 7500 --adb-host adbd
+  command: stf local --public-ip <IP_Address> --provider-min-port 7400 --provider-max-port 7500 --adb-host adbd

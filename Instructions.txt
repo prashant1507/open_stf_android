@@ -1,10 +1,30 @@
-https://github.com/openstf/stf/issues/374
+Steps:
 
-docker pull ubuntu
-docker save ubuntu > ubuntu.tar
-docker load -i ubuntu.tar
+apt install vim (Optional)
+apt install curl (Optional)
+apt install docker.io
+
+// RethinkDB
+docker pull rethinkdb
+
+// ADB
+docker pull sorccu/adb
+
+//STF
+docker pull openstf/stf
+
+
+// To save images to offline machine
+docker pull <Image>>
+docker save <Image> > <Name>.tar
+
+// To load
+docker load -i Name.tar
+
+// To list images
 docker image ls
 
+// to run dockers file
 sudo docker-compose -f openstfDocker.yml up
 
-http://10.10.12.95:7100/#!/devices
+http://<IP>>:7100/#!/devices
