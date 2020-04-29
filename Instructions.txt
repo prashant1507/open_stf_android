@@ -1,0 +1,10 @@
+https://github.com/openstf/stf/issues/374
+
+docker pull ubuntu
+docker save ubuntu > ubuntu.tar
+docker load -i ubuntu.tar
+docker image ls
+
+sudo docker-compose -f openstfDocker.yml up
+
+http://10.10.12.95:7100/#!/devices
