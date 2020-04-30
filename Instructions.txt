@@ -1,38 +1,37 @@
 Steps:
-
 apt install vim (Optional)
 apt install curl (Optional)
+apt install open-vm-tools-desktop ( only for VM)
 apt install docker.io
+apt install docker-compose
 
-// RethinkDB
-docker pull rethinkdb
+RethinkDB:  docker pull rethinkdb
+ADB:  docker pull sorccu/adb
+STF:  docker pull openstf/stf
+Run Docker Compose file:  docker-compose -f openstfDocker.yml up
 
-// ADB
-docker pull sorccu/adb
+// Save and load images for offline
+Pull:  docker pull <Image>>
+Save:  docker save <Image> > <Name>.tar
+Load:  docker load -i Name.tar
 
-//STF
-docker pull openstf/stf
+List Images:  docker image ls
+List Container:  docker ps
 
+http://<IP
+=======================================================================================
+Links to add more features to OpenSTF
 
-// To save images to offline machine
-docker pull <Image>>
-docker save <Image> > <Name>.tar
+OpenSTF API: https://github.com/openstf/stf/blob/master/doc/API.md
+    Eg., curl -H "Authorization: Bearer TOKEN" -i http://<IP>>:7100/api/v1/devices
+OpenSTF iOS: https://github.com/tmobile/stf_ios_support
+OpenSTF Browser DB:  https://github.com/openstf/stf-browser-db
 
-// To load
-docker load -i Name.tar
+========================================================================================
+Docker Commands
 
-// To list images
-docker image ls
-
-// to run dockers file
-sudo docker-compose -f openstfDocker.yml up
-
-http://<IP>>:7100/#!/devices
-
-
-
-API: https://github.com/openstf/stf/blob/master/doc/API.md
-curl -H "Authorization: Bearer TOKEN" -i http://<IP>>:7100/api/v1/devices
-
-
-iOS:  https://github.com/tmobile/stf_ios_support
+Docker Compose Logs:  docker-compose -f <filename.yml> -f
+SSH as root:  docker exec -it --user root <containeer ID> /bin/bash
+SSH as user:  docker exec -it <containerID> /bin/bash
+Copy file to container:  docker cp source/file <containerID>:<path in container>
+Commit containier as a image after changes:  docker commit <containerID> <imageName_New>:<Version>
