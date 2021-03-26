@@ -10,7 +10,7 @@ rethinkdb:
   command: "rethinkdb --bind all --cache-size 2048"
 
 adbd:
-  image: sorccu/adb
+  image: devicefarmer/adb
   privileged: true
   ports:
     - "5038:5038"
@@ -19,7 +19,7 @@ adbd:
     - "/dev/bus/usb:/dev/bus/usb"
 
 stf-local:
-  image: openstf/stf
+  image: devicefarmer/stf
   links:
     - rethinkdb
     - adbd
