@@ -1,32 +1,33 @@
-rethinkdb:
-  image: rethinkdb
-  ports:
-    - "8080:8080"
-    - "28015:28015"
-    - "29015:29015"
-  restart: always
-  volumes:
-    - "/home/user/Desktop/rethinkdb:/data"
-  command: "rethinkdb --bind all --cache-size 2048"
+version: "3"
 
-adbd:
-  image: devicefarmer/adb
-  privileged: true
-  ports:
-    - "5038:5038"
-  restart: always
-  volumes:
-    - "/dev/bus/usb:/dev/bus/usb"
+services:
+  rethinkdb:
+    container_name: rethinkdb
+    image: rethinkdb:2.3
+    restart: unless-stopped
+    volumes:
+        - "<PATH>:/data"
+    command: "rethinkdb --bind all --cache-size 2048"
 
-stf-local:
-  image: devicefarmer/stf
-  links:
-    - rethinkdb
-    - adbd
-  ports:
-    - "7100:7100"
-    - "7110:7110"
-    - "7120:7120"
-    - "7400-7500:7400-7500"
-  restart: always
-  command: stf local --public-ip <IP_Address> --provider-min-port 7400 --provider-max-port 7500 --adb-host adbd
+  adb:
+    container_name: adb
+    image: devicefarmer/adb:latest
+    restart: unless-stopped
+    volumes: 
+      - "/dev/bus/usb:/dev/bus/usb"
+    privileged: true
+
+  stf:
+    container_name: stf
+    image: devicefarmer/stf
+    ports:
+      - "7100:7100"
+      - "7110:7110"
+      - "7400-7500:7400-7500"
+    environment:
+      - TZ='America/Los_Angeles'
+      - RETHINKDB_PORT_28015_TCP=tcp://rethinkdb:28015
+      - STF_ADMIN_EMAIL=<EMAIL>
+      - STF_ADMIN_NAME=<NAME>
+    restart: unless-stopped
+    command: stf local --adb-host adb --public-ip 192.168.0.113 --provider-min-port 7400 --provider-max-port 7500
