@@ -3,7 +3,7 @@ version: "3"
 services:
   rethinkdb:
     container_name: rethinkdb
-    image: rethinkdb:2.3
+    image: rethinkdb:latest
     restart: unless-stopped
     volumes:
         - "<PATH>:/data"
@@ -19,7 +19,7 @@ services:
 
   stf:
     container_name: stf
-    image: devicefarmer/stf
+    image: devicefarmer/stf:latest
     ports:
       - "7100:7100"
       - "7110:7110"
